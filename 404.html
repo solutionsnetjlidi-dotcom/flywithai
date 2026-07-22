@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>404 — الصفحة غير موجودة | OMARSOFT BESTOMAR</title>
+<meta name="theme-color" content="#C9A227">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--nv:#040D1F;--gold:#C9A227;--gl:#EAC84A;--gg:rgba(201,162,39,.35);--w7:rgba(255,255,255,.7)}
+html{scroll-behavior:smooth}
+body{background:var(--nv);color:#fff;font-family:'Cairo',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:40px 20px;
+  overflow:hidden;position:relative}
+/* Stars */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 73% 8%,rgba(255,255,255,.35) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 55%,rgba(201,162,39,.6) 0%,transparent 100%),
+    radial-gradient(1px 1px at 88% 35%,rgba(255,255,255,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 60% 90%,rgba(255,255,255,.4) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 25% 78%,rgba(201,162,39,.5) 0%,transparent 100%);}
+.container{max-width:600px;position:relative;z-index:1}
+.err-num{
+  font-family:'Inter',sans-serif;font-size:clamp(100px,20vw,200px);
+  font-weight:900;line-height:1;
+  background:linear-gradient(90deg,#7B5900,#C9A227,#F8EBA0,#C9A227,#7B5900);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:brill 3s linear infinite;
+}
+@keyframes brill{to{background-position:200% center}}
+.err-robot{font-size:64px;margin:16px 0;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.err-title{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:12px;
+  background:linear-gradient(135deg,#fff,var(--gl));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.err-sub{font-size:16px;color:var(--w7);line-height:1.8;margin-bottom:36px;max-width:420px;margin-left:auto;margin-right:auto}
+.err-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.btn-home{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gl));
+  color:#040D1F;font-weight:800;font-size:15px;padding:13px 28px;
+  border-radius:50px;text-decoration:none;
+  box-shadow:0 6px 28px var(--gg);transition:.3s ease}
+.btn-home:hover{transform:translateY(-3px);box-shadow:0 12px 36px var(--gg)}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#25D366;color:#fff;font-weight:700;font-size:15px;
+  padding:13px 24px;border-radius:50px;text-decoration:none;
+  box-shadow:0 6px 24px rgba(37,211,102,.3);transition:.3s ease}
+.btn-wa:hover{transform:translateY(-3px)}
+.err-brand{
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:20px}
+.err-brand strong{color:var(--gold)}
+/* Gold border frame */
+body::after{content:'';position:fixed;inset:12px;
+  border:1px solid rgba(201,162,39,.15);border-radius:20px;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="container" role="main">
+  <div class="err-num" aria-label="Error 404">404</div>
+  <div class="err-robot" aria-hidden="true">🤖</div>
+  <h1 class="err-title">الصفحة غير موجودة</h1>
+  <p class="err-sub">
+    Page non trouvée · Page not found<br>
+    <span style="font-size:14px;color:rgba(255,255,255,.5)">
+      يبدو أن الروبوتات أكلت هذه الصفحة! 😄<br>
+      دعنا نعيدك إلى المسار الصحيح.
+    </span>
+  </p>
+  <div class="err-btns">
+    <a href="/" class="btn-home">🏠 العودة للرئيسية</a>
+    <a href="https://wa.me/21654421123" class="btn-wa" rel="noopener noreferrer" target="_blank">
+      📲 تواصل معنا
+    </a>
+  </div>
+  <div class="err-brand">
+    <strong>OMARSOFT</strong> · BEST FUTURE WITH BESTOMAR<br>
+    Djerba Midoun · Tunisia · +216 54 421 123
+  </div>
+</div>
+<script>
+// Auto-redirect after 15s
+let count = 15;
+const timer = setInterval(()=>{
+  count--;
+  if(count<=0){clearInterval(timer);window.location.href='/';}
+},1000);
+// Log to help debugging
+console.log('%c[OMARSOFT 404] Page not found','color:#C9A227;font-weight:bold');
+console.log('Redirecting to home in',count,'seconds...');
+</script>
+</body>
+</html>

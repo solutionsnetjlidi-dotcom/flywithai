@@ -1,0 +1,103 @@
+# OMARSOFT BESTOMAR — Apache Configuration
+# Handles: Compression, Caching, Security, Redirects, 404
+
+# ── MOD_REWRITE ──────────────────────────────────────────
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force www (choose one — currently: no www)
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Custom 404
+ErrorDocument 404 /404.html
+
+# ── COMPRESSION (mod_deflate) ─────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml
+  AddOutputFilterByType DEFLATE font/woff font/woff2
+</IfModule>
+
+# ── CACHING ───────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html                 "access plus 1 hour"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType font/woff                 "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/json          "access plus 1 week"
+  ExpiresByType text/plain                "access plus 1 month"
+</IfModule>
+
+# ── CACHE CONTROL HEADERS ─────────────────────────────────
+<FilesMatch "\.(css|js|woff|woff2|ttf|otf|eot)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+  Header set Cache-Control "public, max-age=31536000"
+</FilesMatch>
+<FilesMatch "\.(html|htm)$">
+  Header set Cache-Control "public, max-age=3600, must-revalidate"
+</FilesMatch>
+
+# ── SECURITY HEADERS ──────────────────────────────────────
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+# Content Security Policy
+Header always set Content-Security-Policy "\
+  default-src 'self'; \
+  script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net; \
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+  font-src 'self' https://fonts.gstatic.com; \
+  img-src 'self' data: https:; \
+  connect-src 'self' https://wa.me https://www.google-analytics.com; \
+  frame-ancestors 'none'; \
+  base-uri 'self'; \
+  form-action 'self' https://wa.me;"
+
+# ── REMOVE SERVER SIGNATURE ───────────────────────────────
+ServerSignature Off
+
+# ── BLOCK SENSITIVE FILES ─────────────────────────────────
+<FilesMatch "(\.env|\.git|composer\.json|package\.json|\.htpasswd)$">
+  Require all denied
+</FilesMatch>
+
+# ── DISABLE ETags ─────────────────────────────────────────
+FileETag None
+Header unset ETag
+
+# ── SERVICE WORKER SCOPE ──────────────────────────────────
+<FilesMatch "sw\.js$">
+  Header set Service-Worker-Allowed "/"
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+
+# ── WEBP SUPPORT ──────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_FILENAME} (.*)\.(?:jpg|jpeg|png)$
+  RewriteCond %{REQUEST_FILENAME}.webp -f
+  RewriteRule ^ %{REQUEST_FILENAME}.webp [T=image/webp,L]
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp)$">
+    Header append Vary Accept
+  </FilesMatch>
+</IfModule>

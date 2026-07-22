@@ -1,0 +1,35 @@
+# OMARSOFT — BEST FUTURE WITH BESTOMAR
+# Generated: 2026-07-21
+# https://omarsoft.tn/
+
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /store/
+Allow: /academy/
+
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /sw.js
+
+# Crawl-delay for respectful bots
+Crawl-delay: 1
+
+# Sitemap locations
+Sitemap: https://omarsoft.tn/sitemap.xml
+Sitemap: https://omarsoft.tn/sitemap-ar.xml
+Sitemap: https://omarsoft.tn/sitemap-fr.xml
+Sitemap: https://omarsoft.tn/sitemap-en.xml
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
